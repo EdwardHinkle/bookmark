@@ -16,7 +16,8 @@
     "preinstall": "npm install autodts",
     "postinstall": "autodts link",
     "prepublish": "tsc && autodts generate",
-    "test": "node test/test.js"
+    "test": "node test/test.js",
+    "start": "node ./dist/index.js"
   },
   "repository": {
     "type": "git",
