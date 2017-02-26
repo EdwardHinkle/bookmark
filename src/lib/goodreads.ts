@@ -30,24 +30,25 @@ export class Goodreads {
         return;
     }
 
+    // Goodreads API Calls
     showUser(username: string): Promise<GoodreadsAPIResponse> {
-      this.options.path = "https://www.goodreads.com/user/show.xml?key=" + this.options.key + "&username=" + username;
-      return this.request("GET");
+      var queryData = this.clone(this.options);
+      queryData.path = "https://www.goodreads.com/user/show.xml?key=" + queryData.key + "&username=" + username;
+      return this.request("GET", queryData);
     }
 
 
 
     // HTTP Request
-    request(method: string): Promise<GoodreadsAPIResponse> {
+    request(method: string, options: GoodreadsConfig): Promise<GoodreadsAPIResponse> {
         return new Promise<GoodreadsAPIResponse>((resolve, reject) => { 
 
-            var _options = this.options;
             var parser: xml2js.Parser = new xml2js.Parser();
             var tmp: any[] = [];
 
             if (method == "GET") {
 
-                return http.request(_options, (res) => {
+                return http.request(options, (res) => {
 
                     res.setEncoding('utf8');
 
@@ -71,6 +72,10 @@ export class Goodreads {
             }
         });
 
+    }
+
+    clone(objectToClone: any): any {
+        return JSON.parse(JSON.stringify(objectToClone));
     }
 
 

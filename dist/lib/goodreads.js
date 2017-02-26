@@ -24,19 +24,19 @@ var Goodreads = (function () {
         this.options.callback = callback || this.options.callback;
         return;
     };
+    // Goodreads API Calls
     Goodreads.prototype.showUser = function (username) {
-        this.options.path = "https://www.goodreads.com/user/show.xml?key=" + this.options.key + "&username=" + username;
-        return this.request("GET");
+        var queryData = this.clone(this.options);
+        queryData.path = "https://www.goodreads.com/user/show.xml?key=" + queryData.key + "&username=" + username;
+        return this.request("GET", queryData);
     };
     // HTTP Request
-    Goodreads.prototype.request = function (method) {
-        var _this = this;
+    Goodreads.prototype.request = function (method, options) {
         return new Promise(function (resolve, reject) {
-            var _options = _this.options;
             var parser = new xml2js.Parser();
             var tmp = [];
             if (method == "GET") {
-                return http.request(_options, function (res) {
+                return http.request(options, function (res) {
                     res.setEncoding('utf8');
                     res.on('data', function (chunk) {
                         return tmp.push(chunk);
@@ -53,6 +53,9 @@ var Goodreads = (function () {
                 }).end();
             }
         });
+    };
+    Goodreads.prototype.clone = function (objectToClone) {
+        return JSON.parse(JSON.stringify(objectToClone));
     };
     return Goodreads;
 }());
