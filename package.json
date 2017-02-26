@@ -1,0 +1,31 @@
+{
+  "name": "bookmark",
+  "version": "0.1.0",
+  "description": "A TypeScript API Wrapper for Goodreads API",
+  "main": "index.js",
+  "dependencies": {
+    "@types/es6-promise": "0.0.32",
+    "@types/node": "^7.0.5",
+    "@types/xml2js": "0.0.32",
+    "xml2js": "^0.4.17"
+  },
+  "devDependencies": {
+    "typescript": "^2.0.0"
+  },
+  "scripts": {
+    "preinstall": "npm install autodts",
+    "postinstall": "autodts link",
+    "prepublish": "tsc && autodts generate",
+    "test": "node test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EdwardHinkle/bookmark.git"
+  },
+  "author": "Eddie Hinkle <http://eddiehinkle.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/EdwardHinkle/bookmark/issues"
+  },
+  "homepage": "https://github.com/EdwardHinkle/bookmark#readme"
+}
