@@ -2,7 +2,8 @@
   "name": "bookmark",
   "version": "0.1.0",
   "description": "A TypeScript API Wrapper for Goodreads API",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "dependencies": {
     "@types/es6-promise": "0.0.32",
     "@types/node": "^7.0.5",
