@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var http = require("http");
 var xml2js = require("xml2js");
+var querystring = require("querystring");
 var Goodreads = (function () {
     function Goodreads(config) {
         this.options = {
@@ -25,9 +26,29 @@ var Goodreads = (function () {
         return;
     };
     // Goodreads API Calls
+    // USER API CALLS
     Goodreads.prototype.showUser = function (username) {
         var queryData = this.clone(this.options);
         queryData.path = "https://www.goodreads.com/user/show.xml?key=" + queryData.key + "&username=" + username;
+        return this.request("GET", queryData);
+    };
+    // BOOKSHELF API CALLS
+    Goodreads.prototype.getShelves = function (userId) {
+        var queryData = this.clone(this.options);
+        queryData.path = 'http://www.goodreads.com/shelf/list.xml?user_id=' + userId + "&key=" + queryData.key;
+        return this.request("GET", queryData);
+    };
+    Goodreads.prototype.getSingleShelf = function (shelfOptions) {
+        var queryData = this.clone(this.options);
+        shelfOptions.key = queryData.key;
+        queryData.path = 'http://www.goodreads.com/review/list?' + querystring.stringify(shelfOptions);
+        return this.request("GET", queryData);
+    };
+    // BOOK Statuses
+    Goodreads.prototype.getUserBookReview = function (reviewOptions) {
+        var queryData = this.clone(this.options);
+        reviewOptions.key = queryData.key;
+        queryData.path = 'https://www.goodreads.com/review/show_by_user_and_book.xml?' + querystring.stringify(reviewOptions);
         return this.request("GET", queryData);
     };
     // HTTP Request

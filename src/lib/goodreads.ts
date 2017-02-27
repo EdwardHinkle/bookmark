@@ -1,5 +1,8 @@
 import * as http from "http"
 import * as xml2js from "xml2js"
+import * as querystring from "querystring"
+
+import { GoodreadsAPIResponse } from './goodreadsResponseInterfaces';
 
 export class Goodreads {
     options: GoodreadsConfig;
@@ -31,12 +34,35 @@ export class Goodreads {
     }
 
     // Goodreads API Calls
+
+    // USER API CALLS
     showUser(username: string): Promise<GoodreadsAPIResponse> {
       var queryData = this.clone(this.options);
       queryData.path = "https://www.goodreads.com/user/show.xml?key=" + queryData.key + "&username=" + username;
       return this.request("GET", queryData);
     }
 
+    // BOOKSHELF API CALLS
+    getShelves(userId: number): Promise<GoodreadsAPIResponse> {
+      var queryData = this.clone(this.options);
+      queryData.path = 'http://www.goodreads.com/shelf/list.xml?user_id=' + userId + "&key=" + queryData.key;
+      return this.request("GET", queryData);
+    }
+
+    getSingleShelf(shelfOptions: GoodreadsAPIShelfOptions): Promise<GoodreadsAPIResponse> {
+      var queryData = this.clone(this.options);
+      shelfOptions.key = queryData.key;
+      queryData.path = 'http://www.goodreads.com/review/list?' + querystring.stringify(shelfOptions);
+      return this.request("GET", queryData);
+    }
+
+    // BOOK Statuses
+    getUserBookReview(reviewOptions: GoodreadsAPIBookReviewOptions): Promise<GoodreadsAPIResponse> {
+      var queryData = this.clone(this.options);
+      reviewOptions.key = queryData.key;
+      queryData.path = 'https://www.goodreads.com/review/show_by_user_and_book.xml?' + querystring.stringify(reviewOptions);
+      return this.request("GET", queryData);
+    }
 
 
     // HTTP Request
@@ -95,68 +121,33 @@ export interface GoodreadsConfig extends http.RequestOptions {
     oauth_encryption?: string;
 }
 
-export interface GoodreadsAPIResponse {
-    Request: [GoodreadsAPIRequest],
-    user?: [GoodreadsAPIUser]
+export interface GoodreadsAPIShelfOptions {
+    key?: string;
+    v: number;
+    id: number;
+    shelf?: string;
+    sort?: string
+    search?: string;
+    order?: string; // a or d
+    page?: number; // 1-N
+    per_page?: number; // 1-200
 }
 
-export interface GoodreadsAPIRequest {
-    authentication: [string];
-    key: [string];
-    method: [string];
+export interface GoodreadsAPIBookReviewOptions {
+    key?: string;
+    book_id: number;
+    user_id: number;
 }
 
-export interface GoodreadsAPIUser {
-    id: [string];
-    name: [string];
-    user_name: [string];
-    link: [string];
-    image_url: [string];
-    small_image_url: [string];
-    about: [string];
-    age: [string];
-    gender: [string];
-    location: [string];
-    website: [string];
-    joined: [string];
-    last_active: [string];
-    interests: [string];
-    favorite_books: [string];
-    favorite_authors: [ GoodreadsAPIFavoriteAuthor ];
-    updates_rss_url: [string];
-    reviews_rss_url: [string];
-    friends_count: [ GoodreadsAPIFriendsCount ];
-    groups_count: [string];
-    reviews_count: [ GoodreadsAPIReviewsCount ];
-    user_shelves: [ GoodreadsAPIUserShelves ];
-    updates: [ GoodreadsAPIUpdates ];
-    user_statuses: [ GoodreadsAPIUserStatuses ];
+export interface GoodreadsAPIShelfOptions {
+    key?: string;
+    v: number;
+    id: number;
+    shelf?: string;
+    sort?: string
+    search?: string;
+    order?: string; // a or d
+    page?: number; // 1-N
+    per_page?: number; // 1-200
 }
 
-export interface GoodreadsAPIFavoriteAuthor {
-    author: [Object]
-}
-
-export interface GoodreadsAPIFriendsCount {
-    _: string; // Number of Friends
-    $: [Object];
-}
-
-export interface GoodreadsAPIReviewsCount {
-    _: string; // Number of Reviews
-    $: [Object];
-}
-
-export interface GoodreadsAPIUserShelves {
-    $: [Object];
-    user_shelf: [Object];
-}
-
-export interface GoodreadsAPIUpdates {
-    $: [Object];
-    update: [Object]
-}
-
-export interface GoodreadsAPIUserStatuses {
-    user_status: [Object]
-}
