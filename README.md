@@ -16,4 +16,5 @@ Currently the wrapper just hits the API endpoints, converts the XML response to 
 ## Getting Started
 
 > npm install
+
 > import { Goodreads } from './lib/goodreads';
