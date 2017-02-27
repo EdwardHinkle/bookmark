@@ -13,8 +13,23 @@ Currently the wrapper just hits the API endpoints, converts the XML response to 
 - review.list
 - review.show\_by\_user\_and\_book
 
-## Getting Started
+## Getting Started Using Bookmark
 
+Download this package into a folder inside of your project, and include it from your TypeScript file. All you need to do is point to the bookmark folder within your project and the Goodreads wrapper will be exported into your script from the latest build.
+
+`import { Goodreads } from './bookmark';`
+
+## Getting Started Developing Bookmark
+
+If you want to contribute, this is what you need to do. Download bookmark.
+
+Enter the bookmark directory
+> cd bookmark
+
+Install the dependencies
 > npm install
 
-> import { Goodreads } from './lib/goodreads';
+Compile TypeScript files
+> tsc
+
+If that worked okay, then you should be ready to add new features to Bookmark!
