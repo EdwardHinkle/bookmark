@@ -1,6 +1,7 @@
-import * as http from "http"
-import * as xml2js from "xml2js"
-import * as querystring from "querystring"
+import * as http from "http";
+import * as xml2js from "xml2js";
+import * as querystring from "querystring";
+import * as Promise from 'bluebird';
 
 import { GoodreadsAPIResponse } from './goodreadsResponseInterfaces';
 

@@ -5,9 +5,10 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@types/es6-promise": "0.0.32",
+    "@types/bluebird": "^3.5.2",
     "@types/node": "^7.0.5",
     "@types/xml2js": "0.0.32",
+    "bluebird": "^3.5.0",
     "xml2js": "^0.4.17"
   },
   "devDependencies": {
