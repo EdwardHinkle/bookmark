@@ -16,7 +16,7 @@
   },
   "scripts": {
     "preinstall": "npm install autodts",
-    "postinstall": "autodts link",
+    "postinstall": "tsc; autodts link",
     "prepublish": "tsc && autodts generate",
     "test": "node test/test.js",
     "start": "node ./dist/index.js"
