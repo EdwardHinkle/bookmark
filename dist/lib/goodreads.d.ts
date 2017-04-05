@@ -1,4 +1,6 @@
+/// <reference types="bluebird" />
 import * as http from "http";
+import * as Promise from 'bluebird';
 import { GoodreadsAPIResponse } from './goodreadsResponseInterfaces';
 export declare class Goodreads {
     options: GoodreadsConfig;

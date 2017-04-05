@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var http = require("http");
 var xml2js = require("xml2js");
 var querystring = require("querystring");
+var Promise = require("bluebird");
 var Goodreads = (function () {
     function Goodreads(config) {
         this.options = {
