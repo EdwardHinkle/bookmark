@@ -15,9 +15,7 @@
     "typescript": "^2.0.0"
   },
   "scripts": {
-    "preinstall": "npm install autodts",
-    "postinstall": "tsc; autodts link",
-    "prepublish": "tsc && autodts generate",
+    "prepublish": "tsc",
     "start": "node ./dist/index.js"
   },
   "repository": {
