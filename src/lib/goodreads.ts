@@ -20,8 +20,8 @@ export class Goodreads {
             callback: config.callback || 'http://localhost:3000/callback',
             method: "GET",
             path: '',
-            oauth_request_url: 'http://goodreads.com/oauth/request_token',
-            oauth_access_url: 'http://goodreads.com/oauth/access_token',
+            oauth_request_url: 'https://goodreads.com/oauth/request_token',
+            oauth_access_url: 'https://goodreads.com/oauth/access_token',
             oauth_version: '1.0',
             oauth_encryption: 'HMAC-SHA1'
         }
@@ -46,14 +46,14 @@ export class Goodreads {
     // BOOKSHELF API CALLS
     getShelves(userId: number): Promise<GoodreadsAPIResponse> {
       var queryData = this.clone(this.options);
-      queryData.path = 'http://www.goodreads.com/shelf/list.xml?user_id=' + userId + "&key=" + queryData.key;
+      queryData.path = 'https://www.goodreads.com/shelf/list.xml?user_id=' + userId + "&key=" + queryData.key;
       return this.request("GET", queryData);
     }
 
     getSingleShelf(shelfOptions: GoodreadsAPIShelfOptions): Promise<GoodreadsAPIResponse> {
       var queryData = this.clone(this.options);
       shelfOptions.key = queryData.key;
-      queryData.path = 'http://www.goodreads.com/review/list?' + querystring.stringify(shelfOptions);
+      queryData.path = 'https://www.goodreads.com/review/list?' + querystring.stringify(shelfOptions);
       return this.request("GET", queryData);
     }
 
